@@ -19,7 +19,7 @@ public class DoctorService {
     public DoctorService(FichePatientRepository fichePatientRepository) { this.fichePatientRepository=fichePatientRepository; }
 
     public FichePatient getFichePatientByPatientId(Integer patientId) {
-        logger.info("patientId : "+patientId);
+        logger.info("get FichePatient of patientId : "+patientId);
         return fichePatientRepository.findByPatientId(patientId);
     }
 
