@@ -1,5 +1,6 @@
 package com.medilabo.doctors.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
@@ -14,7 +15,7 @@ public class Note {
 
     private String docteur;
     private String texte;
-    private LocalDateTime date;
+    private String date;
 
 
 
@@ -33,7 +34,7 @@ public class Note {
     }
 
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

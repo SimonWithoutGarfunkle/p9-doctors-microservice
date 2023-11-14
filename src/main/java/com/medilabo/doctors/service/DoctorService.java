@@ -30,7 +30,7 @@ public class DoctorService {
     public FichePatient addNote(Integer patientId, Note note) {
         FichePatient fiche = getFichePatientByPatientId(patientId);
         fiche.getNotes().add(note);
-        return fichePatientRepository.insert(fiche);
+        return fichePatientRepository.save(fiche);
 
     }
 
