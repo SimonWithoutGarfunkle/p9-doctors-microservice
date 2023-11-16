@@ -1,13 +1,17 @@
 package com.medilabo.doctors.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Note {
 
     @Id
@@ -16,8 +20,6 @@ public class Note {
     private String docteur;
     private String texte;
     private String date;
-
-
 
     public void setId(String id) {
         this.id = id;
