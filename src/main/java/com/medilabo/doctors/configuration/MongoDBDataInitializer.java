@@ -1,18 +1,14 @@
 package com.medilabo.doctors.configuration;
 
-import com.medilabo.doctors.controller.DoctorController;
 import com.medilabo.doctors.model.FichePatient;
 import com.medilabo.doctors.model.Note;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +19,6 @@ public class MongoDBDataInitializer {
     private MongoTemplate mongoTemplate;
 
     private static Logger logger = LoggerFactory.getLogger(MongoDBDataInitializer.class);
-
 
 
     public void initializeMongoDB() {

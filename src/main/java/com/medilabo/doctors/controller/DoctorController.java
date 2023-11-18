@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Rest Controller to access the back end Doctor
  */
@@ -58,5 +63,14 @@ public class DoctorController {
         return doctorService.addNote(id, note);
     }
 
+    @GetMapping("/{id}/analyse")
+    public long analyseNotes(@PathVariable(value = "id") Integer id,@RequestParam("mots") List<String> listMots) {
+        List<String> decodedMots = null;
+        if (listMots != null) {
+            decodedMots = listMots.stream()
+                    .map(mot -> URLDecoder.decode(mot, StandardCharsets.UTF_8))
+                    .toList();}
+        return doctorService.analyseNotes(id, decodedMots);
+    }
 
 }
