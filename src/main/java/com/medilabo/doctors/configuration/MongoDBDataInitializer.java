@@ -21,6 +21,9 @@ public class MongoDBDataInitializer {
     private static Logger logger = LoggerFactory.getLogger(MongoDBDataInitializer.class);
 
 
+    /**
+     * Clean the MongoDB and add the sample data in it
+     */
     public void initializeMongoDB() {
         mongoTemplate.remove(new Query(), "notes");
 
@@ -30,7 +33,7 @@ public class MongoDBDataInitializer {
         FichePatient fichePatient1 = new FichePatient();
         fichePatient1.setPatientId(1);
         List<Note> notes1 = new ArrayList<>();
-        notes1.add(createNote("2023-03-19T00:00:00.000Z", "David Tennant", "Le patient déclare qu'il 'se sent très bien' Poids égal ou inférieur au poids recommandé"));
+        notes1.add(createNote("2023-03-19T00:00:00.000Z", "David Tennant", "Le patient déclare qu'il 'se sent très bien' Poids égal ou inférieur au poid recommandé"));
         fichePatient1.setNotes(notes1);
         fichesPatients.add(fichePatient1);
 
@@ -68,6 +71,13 @@ public class MongoDBDataInitializer {
         logger.info("Données insérées dans MongoDB !");
     }
 
+    /**
+     * Create a new note with the parem
+     * @param date of the note
+     * @param docteur who write the note
+     * @param texte of the note
+     * @return the new Note
+     */
     private static Note createNote(String date, String docteur, String texte) {
         Note note = new Note();
         note.setDocteur(docteur);

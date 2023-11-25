@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -63,13 +62,22 @@ public class DoctorController {
         return doctorService.addNote(id, note);
     }
 
+    /**
+     * Performs analysis based on the provided list of words for a specific patient9.
+     *
+     * @param id of the patient to analyse
+     * @param mots The list of words to search in the history of the patient
+     * @return Occurrence of the specified words in the history of the patient
+     */
     @GetMapping("/{id}/analyse")
-    public long analyseNotes(@PathVariable(value = "id") Integer id,@RequestParam("mots") List<String> listMots) {
+    public long analyseNotes(@PathVariable(value = "id") Integer id,@RequestParam("mots") List<String> mots) {
         List<String> decodedMots = null;
-        if (listMots != null) {
-            decodedMots = listMots.stream()
+        if (mots != null) {
+            decodedMots = mots.stream()
                     .map(mot -> URLDecoder.decode(mot, StandardCharsets.UTF_8))
                     .toList();}
+        mots.forEach(mot-> logger.info(mot));
+        decodedMots.forEach(mot-> logger.info(mot));
         return doctorService.analyseNotes(id, decodedMots);
     }
 
