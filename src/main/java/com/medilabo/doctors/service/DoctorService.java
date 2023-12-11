@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DoctorService {
 
@@ -24,16 +26,21 @@ public class DoctorService {
     }
 
     public FichePatient addFichePatient(FichePatient fichePatient) {
+        logger.debug("Saving fiche n°"+fichePatient.getPatientId()+" in database");
         return fichePatientRepository.insert(fichePatient);
     }
 
     public FichePatient addNote(Integer patientId, Note note) {
+        logger.debug("Adding note to patient n°"+patientId);
         FichePatient fiche = getFichePatientByPatientId(patientId);
         fiche.getNotes().add(note);
         return fichePatientRepository.save(fiche);
 
     }
 
-
+    public long analyseNotes(Integer id, List<String> mots) {
+        logger.info("analyzing notes from patient n°"+id);
+        return fichePatientRepository.countKeywordOccurrencesForPatient(id, mots);
+    }
 
 }

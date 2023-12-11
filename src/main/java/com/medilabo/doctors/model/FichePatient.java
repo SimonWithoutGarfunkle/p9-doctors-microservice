@@ -39,4 +39,5 @@ public class FichePatient {
     public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
+
 }

@@ -1,18 +1,14 @@
 package com.medilabo.doctors.configuration;
 
-import com.medilabo.doctors.controller.DoctorController;
 import com.medilabo.doctors.model.FichePatient;
 import com.medilabo.doctors.model.Note;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +21,9 @@ public class MongoDBDataInitializer {
     private static Logger logger = LoggerFactory.getLogger(MongoDBDataInitializer.class);
 
 
-
+    /**
+     * Clean the MongoDB and add the sample data in it
+     */
     public void initializeMongoDB() {
         mongoTemplate.remove(new Query(), "notes");
 
@@ -73,6 +71,13 @@ public class MongoDBDataInitializer {
         logger.info("Données insérées dans MongoDB !");
     }
 
+    /**
+     * Create a new note with the parem
+     * @param date of the note
+     * @param docteur who write the note
+     * @param texte of the note
+     * @return the new Note
+     */
     private static Note createNote(String date, String docteur, String texte) {
         Note note = new Note();
         note.setDocteur(docteur);
