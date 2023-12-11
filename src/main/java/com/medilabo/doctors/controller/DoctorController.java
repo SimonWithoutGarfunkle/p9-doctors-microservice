@@ -32,6 +32,7 @@ public class DoctorController {
      */
     @GetMapping("/{id}")
     public FichePatient getFichePatientById(@PathVariable(value = "id") Integer id) {
+        logger.debug("Retrieving fiche from patient n°"+id);
         return doctorService.getFichePatientByPatientId(id);
     }
 
@@ -71,13 +72,14 @@ public class DoctorController {
      */
     @GetMapping("/{id}/analyse")
     public long analyseNotes(@PathVariable(value = "id") Integer id,@RequestParam("mots") List<String> mots) {
+        logger.info("analysing patient n°" + id + " looking for " + mots.size() + " trigger words");
         List<String> decodedMots = null;
         if (mots != null) {
             decodedMots = mots.stream()
                     .map(mot -> URLDecoder.decode(mot, StandardCharsets.UTF_8))
-                    .toList();}
-        mots.forEach(mot-> logger.info(mot));
-        decodedMots.forEach(mot-> logger.info(mot));
+                    .toList();
+            logger.debug("list of trigger words adapted to UTF_8");
+        }
         return doctorService.analyseNotes(id, decodedMots);
     }
 

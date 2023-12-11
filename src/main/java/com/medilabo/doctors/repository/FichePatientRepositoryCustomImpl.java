@@ -38,22 +38,7 @@ public class FichePatientRepositoryCustomImpl implements FichePatientRepositoryC
      */
     @Override
     public long countKeywordOccurrencesForPatient(Integer patientId, List<String> searchStrings) {
-        long totalOccurrences = 0;
 
-        for (String word : searchStrings) {
-            totalOccurrences += countOccurrencesInNotes(patientId, word);
-        }
-
-        return totalOccurrences;
-    }
-
-    /**
-     * Retrieve the notes of the patient from DB and count word occurence in the notes
-     * @param patientId patient to count in his notes
-     * @param wordToSearch word to search
-     * @return number of occurence
-     */
-    public long countOccurrencesInNotes(Integer patientId, String wordToSearch) {
         Query query = new Query(Criteria.where("patientId").is(patientId));
         FichePatient patient = mongoTemplate.findOne(query, FichePatient.class);
 
@@ -62,11 +47,31 @@ public class FichePatientRepositoryCustomImpl implements FichePatientRepositoryC
         }
 
         long totalOccurrences = 0;
+
+        for (String word : searchStrings) {
+            logger.debug("on cherche le mot : "+word);
+            totalOccurrences += countOccurrencesInNotes(patient, word);
+        }
+
+        return totalOccurrences;
+    }
+
+    /**
+     * Retrieve the notes of the patient from DB and count word occurence in the notes
+     * @param fiche Fiche patient to count in his notes
+     * @param wordToSearch word to search
+     * @return number of occurence
+     */
+    public long countOccurrencesInNotes(FichePatient fiche, String wordToSearch) {
+
+        long totalOccurrences = 0;
         Pattern pattern = Pattern.compile("(?i)\\b" + wordToSearch + "\\b");
 
-        for (Note noteText : patient.getNotes()) {
+        for (Note noteText : fiche.getNotes()) {
             Matcher matcher = pattern.matcher(noteText.getTexte());
-            while (matcher.find()) {
+            logger.debug("le matcher contient : "+matcher.toString());
+            if (matcher.find()) {
+                logger.debug("on a trouvé le mot : "+wordToSearch);
                 totalOccurrences++;
             }
         }

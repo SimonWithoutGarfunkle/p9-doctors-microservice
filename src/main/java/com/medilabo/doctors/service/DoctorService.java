@@ -26,10 +26,12 @@ public class DoctorService {
     }
 
     public FichePatient addFichePatient(FichePatient fichePatient) {
+        logger.debug("Saving fiche n°"+fichePatient.getPatientId()+" in database");
         return fichePatientRepository.insert(fichePatient);
     }
 
     public FichePatient addNote(Integer patientId, Note note) {
+        logger.debug("Adding note to patient n°"+patientId);
         FichePatient fiche = getFichePatientByPatientId(patientId);
         fiche.getNotes().add(note);
         return fichePatientRepository.save(fiche);
@@ -40,9 +42,5 @@ public class DoctorService {
         logger.info("analyzing notes from patient n°"+id);
         return fichePatientRepository.countKeywordOccurrencesForPatient(id, mots);
     }
-
-
-
-
 
 }

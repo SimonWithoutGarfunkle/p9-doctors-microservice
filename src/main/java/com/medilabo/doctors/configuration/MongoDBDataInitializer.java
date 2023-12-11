@@ -33,7 +33,7 @@ public class MongoDBDataInitializer {
         FichePatient fichePatient1 = new FichePatient();
         fichePatient1.setPatientId(1);
         List<Note> notes1 = new ArrayList<>();
-        notes1.add(createNote("2023-03-19T00:00:00.000Z", "David Tennant", "Le patient déclare qu'il 'se sent très bien' Poids égal ou inférieur au poid recommandé"));
+        notes1.add(createNote("2023-03-19T00:00:00.000Z", "David Tennant", "Le patient déclare qu'il 'se sent très bien' Poids égal ou inférieur au poids recommandé"));
         fichePatient1.setNotes(notes1);
         fichesPatients.add(fichePatient1);
 
